@@ -28,29 +28,59 @@ Steps:
  7. Used JUnit for writing Unit Test Cases.
  8. Used Maven for build & deployment. 
  
- # generic-rest-api
-Generic Rest API with Spring Boot, JpaRepository
+Title: Entity Management System 
+-------------------------------
 
-## Tutorial
+Technologies Used: 
+------------------
+		1. Java/Java EE, 
+		2. Log4J, 
+		3. Spring Framework, 
+		4. Spring Boot,  
+		5. PostgreSql DB,
+		6. Hibernate ORM, 
+		7. Spring MVC,
+		9. Swagger Documentation API
+		11. Maven
+		12. GitHub
+		13. JUnit
 
+Steps: 
+-------
+ 1. Created Project through Spring Boot on Start.io.
+ 2. Used GitHub SCM tool to create repository (ems).
+ 3. Imported ecm git repository in Eclipse IDE
+ 4. Started adding Spring MVC.
+ 4. Configured application log file using Log4J.
+ 5. Then configured DataSource, Session factory & TransactionManager for Hibernate.
+ 6. Written Controller & Dao Layer code. I've used Postgres DB to deal with storing the data.
+ 7. Used JUnit for writing Unit Test Cases.
+ 8. Used Maven for build & deployment. 
+ 
+ 
+Model Classes: 
+-------------
+1. BaseModel.java
+2. Patient.java
+3. Doctor.java (Sub Entity)
+4. Product.java
 
-### Introduction
+ 	Created generic base entity class BaseModel.java & then later is was extended by other entities.  
+ 
+Controller Classes: 
+-------------
+1. GenericRestController.java
+2. PatientController.java
+3. ProductController.java
 
-In this tutorial we're going to create a generic restful api, without writing too
-much back-end java code.
+ 	Created generic controller class GenericRestController.java & then later is was extended by other controllers.
+ 	
+ Dao Classes: 
+-------------
+1. BaseDao.java
+2. PatientDao.java
+3. ProductDao.java
 
-#### In the end of this tutorial, our controllers will look like this.
-
-```java
-@RestController
-@RequestMapping("/patients")
-public class PatientController extends GenericRestController<Patient> { }
-
-```
-#### and we will be written no sql or hibernate queries.
-our dao classes will be like:
-```java
-public interface PatientDao extends BaseDao<Patient> { }
-```
-
-but our Restful services will be available.
+ 	Created generic base dao class BaseDao.java & then later is was extended by other Daos.
+ 	
+ 

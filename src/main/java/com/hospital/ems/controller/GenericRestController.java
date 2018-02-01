@@ -2,6 +2,8 @@ package com.hospital.ems.controller;
 
 import java.util.List;
 
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -25,6 +27,8 @@ import com.hospital.ems.model.BaseModel;
  */
 public class GenericRestController<T extends BaseModel> {
 
+	private static final Logger logger = LogManager.getLogger(GenericRestController.class);
+
 	@Autowired
 	private BaseDao<T> dao;
 
@@ -35,6 +39,7 @@ public class GenericRestController<T extends BaseModel> {
 	 */
 	@GetMapping
 	public List<T> list() {
+		logger.debug("In List all method!");
 		return dao.findAll();
 	}
 
