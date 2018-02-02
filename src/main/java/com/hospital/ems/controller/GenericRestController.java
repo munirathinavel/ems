@@ -5,6 +5,7 @@ import java.util.List;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -32,15 +33,23 @@ public class GenericRestController<T extends BaseModel> {
 	@Autowired
 	private BaseDao<T> dao;
 
+	// @Autowired
+	// private IPatientDao patientDao;
+
 	/**
 	 * Fetch Entity from Database
 	 * 
 	 * @return
 	 */
 	@GetMapping
-	public List<T> list() {
+	public ResponseEntity<List<T>> list() {
 		logger.debug("In List all method!");
-		return dao.findAll();
+		/*
+		 * if (entity instanceof Patient) { return (T) patientDao.save((Patient)
+		 * entity); } else {
+		 */
+		return ResponseEntity.ok().body(dao.findAll());
+		// }
 	}
 
 	/**
@@ -49,8 +58,11 @@ public class GenericRestController<T extends BaseModel> {
 	 * @return
 	 */
 	@PostMapping
-	public T create(@RequestBody T entity) {
-		return dao.save(entity);
+	public ResponseEntity<T> create(@RequestBody T entity) {
+		logger.debug("Creating entity into DB");
+
+		return ResponseEntity.ok().body(dao.save(entity));
+
 	}
 
 	/**
@@ -59,8 +71,9 @@ public class GenericRestController<T extends BaseModel> {
 	 * @return
 	 */
 	@PutMapping(value = "{id}")
-	public T update(@PathVariable(value = "id") long id, @RequestBody T entity) {
-		return dao.save(entity);
+	public ResponseEntity<T> update(@PathVariable(value = "id") long id, @RequestBody T entity) {
+		logger.debug("Updating entity with id:" + id);
+		return ResponseEntity.ok().body(dao.save(entity));
 	}
 
 	/**
@@ -69,8 +82,10 @@ public class GenericRestController<T extends BaseModel> {
 	 * @return
 	 */
 	@DeleteMapping(value = "{id}")
-	public void delete(@PathVariable(value = "id") long id) {
+	public ResponseEntity<String> delete(@PathVariable(value = "id") long id) {
+		logger.debug("Deleting entity with id:" + id);
 		dao.delete(id);
+		return ResponseEntity.ok().body("Entity deleted successfully for id:" + id);
 	}
 
 	/**
@@ -79,7 +94,8 @@ public class GenericRestController<T extends BaseModel> {
 	 * @return
 	 */
 	@GetMapping(value = "{id}")
-	public T get(@PathVariable(value = "id") long id) {
-		return dao.getOne(id);
+	public ResponseEntity<T> get(@PathVariable(value = "id") long id) {
+		logger.debug("Fetching entity with id:" + id);
+		return ResponseEntity.ok().body(dao.getOne(id));
 	}
 }

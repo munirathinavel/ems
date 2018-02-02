@@ -11,5 +11,4 @@ import com.hospital.ems.model.Patient;
  *
  */
 public interface PatientDao extends BaseDao<Patient> {
-
 }
